@@ -4,11 +4,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using CarManagement.Models;
 
 namespace CarManagement.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class CarsController : ControllerBase
     {
         private static readonly string[] CarTypes = new[]
@@ -23,15 +24,15 @@ namespace CarManagement.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<Cars> Get()
+        public IEnumerable<Car> Get()
         {
             var rng = new Random();
-            return Enumerable.Range(1, 5).Select(index => new Cars
+            return Enumerable.Range(1, 5).Select(index => new Car
             {
                 Id = rng.Next(0, 55),
                 Brand = "Volkswagen",
                 CarRegistrationDate = DateTime.Now.AddDays(index),
-                Type = CarTypes[rng.Next(CarTypes.Length)]
+                Model = CarTypes[rng.Next(CarTypes.Length)]
             })
             .ToArray();
         }
